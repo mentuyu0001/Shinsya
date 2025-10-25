@@ -141,19 +141,19 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="Scripts\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Car.cpp">
+    <ClCompile Include="Scripts\PlayerCar\Car.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stage.cpp">
+    <ClCompile Include="Scripts\StageBodies\CreateStage\Stage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Goal.cpp">
+    <ClCompile Include="Scripts\StageBodies\Goal\Goal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DisplayTimer.cpp">
+    <ClCompile Include="Scripts\UI\Timer\DisplayTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -818,19 +818,19 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="Scripts\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Car.h">
+    <ClInclude Include="Scripts\PlayerCar\Car.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Stage.h">
+    <ClInclude Include="Scripts\StageBodies\CreateStage\Stage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Goal.h">
+    <ClInclude Include="Scripts\StageBodies\Goal\Goal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DisplayTimer.h">
+    <ClInclude Include="Scripts\UI\Timer\DisplayTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

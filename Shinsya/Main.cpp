@@ -1,8 +1,7 @@
 ﻿# include <Siv3D.hpp> // Siv3D v0.6.16
-# include "Car.h"
-# include "Stage.h"
-# include "Goal.h"
-# include "DisplayTimer.h"
+
+# include "stdafx.h"
+
 
 /*
 // メインスクリプト
