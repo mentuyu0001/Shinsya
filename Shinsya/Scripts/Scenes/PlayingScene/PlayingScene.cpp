@@ -1,11 +1,12 @@
 ﻿#include "stdafx.h"
 
+
 // コンストラクタで、Mainにあったオブジェクトをすべて初期化する
-PlayingScene::PlayingScene()
+PlayingScene::PlayingScene(Grid<bool> myDesign)
 	: m_world(98 * 3)
 	, m_stage(m_world)
 	, m_goal(m_world)
-	, m_car(m_world, Scene::Center(), 0.05, m_stage.getBodies())
+	, m_car(m_world, Scene::Center(), 0.05, m_stage.getBodies(), myDesign)
 	, m_timer()
 	, m_result()
 	, m_camera(m_car.getPosition(), 1.0, CameraControl::None_)

@@ -336,7 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Scenes\PlayingScene\PlayingScene.h" />
-    <ClInclude Include="Scripts\Scenes\IScene\IScene.h" />
+    <ClInclude Include="Scripts\Scenes\IAppScene\IAppScene.h" />
     <ClInclude Include="Scripts\UI\Button\Button.h" />
     <ClInclude Include="Scripts\GameState\GameState.h" />
     <ClInclude Include="Scripts\UI\Result\Result.h" />

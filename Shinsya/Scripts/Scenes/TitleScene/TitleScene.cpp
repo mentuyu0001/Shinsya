@@ -24,6 +24,6 @@ GameState TitleScene::update()
 
 void TitleScene::draw() const
 {
-	// update内で描画処理を行うため、draw関数は空
-	return;
+	m_startButton.draw();
+	m_exitButton.draw();
 }

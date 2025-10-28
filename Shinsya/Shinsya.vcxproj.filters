@@ -165,6 +165,9 @@
     <ClCompile Include="Scripts\Scenes\TitleScene\TitleScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\Scenes\PlayingScene\PlayingScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -854,7 +857,10 @@
     <ClInclude Include="Scripts\Scenes\TitleScene\TitleScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Scenes\IScene\IScene.h">
+    <ClInclude Include="Scripts\Scenes\IAppScene\IAppScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Scenes\PlayingScene\PlayingScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

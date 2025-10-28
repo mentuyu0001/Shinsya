@@ -7,7 +7,7 @@
 class Car
 {
 public:
-	Car(P2World& world, const Vec2& pos, double dampingRatio, Array<P2Body> Bodies);
+	Car(P2World& world, const Vec2& pos, double dampingRatio, Array<P2Body> Bodies, const Grid<bool>& blockGrid);
 	void draw() const;
 	void setMotorSpeed(double speed);
 	void jump(double force);

@@ -17,7 +17,17 @@ bool Button::update()
 	{
 		// カーソルを手の形にする
 		Cursor::RequestStyle(CursorStyle::Hand);
+	}
 
+
+	// ボタンが左クリックされたフレームなら true を返す
+	return m_rect.leftClicked();
+}
+
+void Button::draw() const
+{
+	if (m_rect.mouseOver())
+	{
 		// 少し暗い色で背景を描画
 		m_rect.rounded(6).draw(ColorF{ 0.9, 0.9, 0.9 });
 	}
@@ -29,7 +39,4 @@ bool Button::update()
 
 	// テキストを描画
 	m_font(m_text).drawAt(m_rect.center(), ColorF{ 0.1 });
-
-	// ボタンが左クリックされたフレームなら true を返す
-	return m_rect.leftClicked();
 }

@@ -16,9 +16,6 @@ bool Result::update()
 {
 	if (isGoal)
 	{
-		Rect{ 0, 0, 1280, 720 }.draw(ColorF{ 0, 0, 0, 0.5 });
-		font(U"クリア！"_fmt(time)).draw(80, Arg::center = Scene::Center().movedBy(0, -150), ColorF{ 1, 0.7, 0.7});
-		font(U"タイム: {:.2f}秒"_fmt(time)).draw(40, Arg::center = Scene::Center().movedBy(0, 0), Palette::White);
 		if (returnTitleButton.update())
 		{
 			return true;
@@ -35,5 +32,11 @@ void Result::Goal(float clearTime)
 
 void Result::draw() const
 {
-	return;
+	if (isGoal)
+	{
+		Rect{ 0, 0, 1280, 720 }.draw(ColorF{ 0, 0, 0, 0.5 });
+		font(U"クリア！"_fmt(time)).draw(80, Arg::center = Scene::Center().movedBy(0, -150), ColorF{ 1, 0.7, 0.7 });
+		font(U"タイム: {:.2f}秒"_fmt(time)).draw(40, Arg::center = Scene::Center().movedBy(0, 0), Palette::White);
+		returnTitleButton.draw();
+	}
 }

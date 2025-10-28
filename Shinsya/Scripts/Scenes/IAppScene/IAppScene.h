@@ -6,11 +6,11 @@
 // シーンのインターフェース
 */
 
-class IScene
+class IAppScene
 {
 public:
 	// 仮想デストラクタ
-	virtual ~IScene() = default;
+	virtual ~IAppScene() = default;
 
 	// 純粋仮想関数
 	virtual GameState update() = 0;
