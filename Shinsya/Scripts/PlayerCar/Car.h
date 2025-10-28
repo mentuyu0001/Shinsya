@@ -14,6 +14,8 @@ public:
 	void stop();
 	Vec2 getPosition() const;
 	P2Body getBody();
+	P2Body getWheelL();
+	P2Body getWheelR();
 
 private:
 	P2Body body;

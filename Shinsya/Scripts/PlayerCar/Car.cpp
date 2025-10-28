@@ -103,3 +103,13 @@ P2Body Car::getBody()
 {
 	return body;
 }
+
+P2Body Car::getWheelL()
+{
+	return wheelL;
+}
+
+P2Body Car::getWheelR()
+{
+	return wheelR;
+}

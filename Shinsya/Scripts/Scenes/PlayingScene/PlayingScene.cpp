@@ -28,7 +28,7 @@ GameState PlayingScene::update()
 
 	if (KeySpace.down()) { m_car.jump(m_jumpImpulse); }
 
-	if (m_goal.GoalChecker(m_car.getBody()))
+	if (m_goal.GoalChecker(m_car.getBody()) || m_goal.GoalChecker(m_car.getWheelL()) || m_goal.GoalChecker(m_car.getWheelR()))
 	{
 		m_timer.Goal();
 		m_result.Goal(m_timer.getTime());

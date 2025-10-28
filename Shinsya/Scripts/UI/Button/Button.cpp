@@ -24,9 +24,13 @@ bool Button::update()
 	return m_rect.leftClicked();
 }
 
-void Button::draw() const
+void Button::draw(bool isActive) const
 {
-	if (m_rect.mouseOver())
+	if (isActive)
+	{
+		m_rect.rounded(6).draw(ColorF{ 0.6, 0.8, 1.0 }); // アクティブ時の色 (例: 明るい青)
+	}
+	else if (m_rect.mouseOver())
 	{
 		// 少し暗い色で背景を描画
 		m_rect.rounded(6).draw(ColorF{ 0.9, 0.9, 0.9 });
