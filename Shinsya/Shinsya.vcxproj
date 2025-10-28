@@ -117,6 +117,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Scripts\UI\Button\Button.cpp" />
+    <ClCompile Include="Scripts\UI\Result\Result.cpp" />
     <ClCompile Include="Scripts\PlayerCar\Car.cpp" />
     <ClCompile Include="Scripts\StageBodies\Goal\Goal.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -126,6 +128,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Scripts\UI\Timer\DisplayTimer.cpp" />
+    <ClCompile Include="Scripts\Scenes\TitleScene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -331,11 +334,16 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scripts\Scenes\IScene\IScene.h" />
+    <ClInclude Include="Scripts\UI\Button\Button.h" />
+    <ClInclude Include="Scripts\GameState\GameState.h" />
+    <ClInclude Include="Scripts\UI\Result\Result.h" />
     <ClInclude Include="Scripts\PlayerCar\Car.h" />
     <ClInclude Include="Scripts\StageBodies\Goal\Goal.h" />
     <ClInclude Include="Scripts\StageBodies\CreateStage\Stage.h" />
     <ClInclude Include="Scripts\stdafx.h" />
     <ClInclude Include="Scripts\UI\Timer\DisplayTimer.h" />
+    <ClInclude Include="Scripts\Scenes\TitleScene\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\example\obj\blacksmith.obj">

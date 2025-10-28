@@ -1,6 +1,8 @@
 ﻿# include <Siv3D.hpp> // Siv3D v0.6.16
+#include <memory>
 
 # include "stdafx.h"
+
 
 
 /*
@@ -9,8 +11,21 @@
 
 void Main()
 {
+	// 画面を 1280x720 にリサイズする
+	Window::Resize(1280, 720);
+
 	// 背景色を設定
 	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
+
+	// -----------------------------------
+	// ゲームステートの準備
+	// -----------------------------------
+	std::shared_ptr<IScene> currentScene = std::make_shared<TitleScene>();
+
+	// -----------------------------------
+	// 各シーンのオブジェクトを作成
+	// -----------------------------------
+	TitleScene titleScene;
 
 	// -----------------------------------
 	// 物理ワールドの準備
@@ -33,7 +48,18 @@ void Main()
 	// タイマーの生成
 	DisplayTimer timer;
 
+	// リザルト画面の生成
+	Result result;
 
+	// -----------------------------------
+	// カメラの作成
+	// -----------------------------------
+	Camera2D camera{ car.getPosition(), 1.0, CameraControl::None_ };
+
+
+	// -----------------------------------
+	// パラメータ
+	// -----------------------------------
 	// 新しく追加：速度の最大値を定義
 	int32 motorSpeed = 0;
 
@@ -43,74 +69,122 @@ void Main()
 
 	while (System::Update())
 	{
-		// -----------------------------------
-		// 物理ワールドの更新
-		// -----------------------------------
-		// 1フレーム分のシミュレーションを進める
-		world.update();
+		const GameState nextState = currentScene->update();
+		currentScene->draw();
 
 		// -----------------------------------
-		// 車の更新
+		// ゲームステートごとの処理
 		// -----------------------------------
-		// 車を動かす
-		car.setMotorSpeed(motorSpeed);
-
-		// -----------------------------------
-		// タイマーの更新
-		// -----------------------------------
-		// 時間を加算する
-		timer.addTime();
-
-		// -----------------------------------
-		// 入力に応じて力を加える
-		// -----------------------------------
-		// 左クリックされたら、左方向に力を加える
-		if (MouseL.pressed() || KeyLeft.pressed())
+		switch (gameState)
 		{
-			motorSpeed = -500;
+		case GameState::Title:
+			// タイトル画面
+			gameState = titleScene.update();
+			titleScene.draw();
+			break;
+		case GameState::Ready:
+			// 芯車制作画面
+			break;
+		case GameState::Playing:
+			// プレイ中
+			
+			// -----------------------------------
+			// 物理ワールドの更新
+			// -----------------------------------
+			// 1フレーム分のシミュレーションを進める
+			world.update();
+			// カメラの更新
+			camera.setTargetCenter(car.getPosition());
+			camera.update();
+			// -----------------------------------
+			// 車の更新
+			// -----------------------------------
+			// 車を動かす
+			car.setMotorSpeed(motorSpeed);
+
+			// -----------------------------------
+			// タイマーの更新
+			// -----------------------------------
+			// 時間を加算する
+			timer.addTime();
+
+			// -----------------------------------
+			// 入力に応じて力を加える
+			// -----------------------------------
+			// 左クリックされたら、左方向に力を加える
+			if (MouseL.pressed() || KeyLeft.pressed())
+			{
+				motorSpeed = -500;
+			}
+
+			// 右クリックされたら、右方向に力を加える
+			if (MouseR.pressed() || KeyRight.pressed())
+			{
+				motorSpeed = 500;
+			}
+
+			// 何も押されてない間はmotorSpeedを0にする
+			if (!MouseR.pressed() && !KeyRight.pressed() && !MouseL.pressed() && !KeyLeft.pressed())
+			{
+				motorSpeed = 0;
+			}
+
+			//------------------------------------
+			// ジャンプ処理
+			//------------------------------------
+			// スペースキーが押された
+			if (KeySpace.down())
+			{
+				car.jump(jumpImpulse);
+			}
+
+			//------------------------------------
+			// ゴール判定
+			//------------------------------------
+			if (goal.GoalChecker(car.getBody()))
+			{
+				timer.Goal();
+				result.Goal(timer.getTime());
+				car.stop();
+			}
+
+
+			// -----------------------------------
+			// 描画
+			// -----------------------------------
+			// カメラと一緒に動く物の描画
+			{
+				// カメラの座標変換
+				const auto t = camera.createTransformer();
+				// ステージの描画
+				stage.draw();
+				// ゴールの描画
+				goal.draw();
+				// プレイヤーの描画
+				car.draw();
+			}
+			// カメラに関係なく固定な物の描画
+			{
+				// タイマーの描画
+				timer.draw();
+				if (result.update())
+				{
+					// タイトルに戻るボタンが押された
+					gameState = GameState::Title;
+				}
+			}
+			break;
+
+		case GameState::Rnaking:
+			// ランキング表示
+
+			break;
+
+		default:
+			// 予期せぬ状態遷移
+			throw std::runtime_error("ゲームが予期せない遷移をしました");
+			break;
 		}
-
-		// 右クリックされたら、右方向に力を加える
-		if (MouseR.pressed() || KeyRight.pressed())
-		{
-			motorSpeed = 500;
-		}
-
-		// 何も押されてない間はmotorSpeedを0にする
-		if (!MouseR.pressed() && !KeyRight.pressed() && !MouseL.pressed() && !KeyLeft.pressed())
-		{
-			motorSpeed = 0;
-		}
-
-		//------------------------------------
-		// ジャンプ処理
-		//------------------------------------
-		// スペースキーが押された
-		if (KeySpace.down())
-		{
-			car.jump(jumpImpulse);
-		}
-
-		//------------------------------------
-		// ゴール判定
-		//------------------------------------
-		if (goal.GoalChecker(car.getBody()))
-		{
-			timer.Goal();
-		}
-
-
-		// -----------------------------------
-		// 描画
-		// -----------------------------------
-		// ステージの描画
-		stage.draw();
-		// ゴールの描画
-		goal.draw();
-		// プレイヤーの描画
-		car.draw();
-		// タイマーの描画
-		timer.draw();
 	}
 }
 
