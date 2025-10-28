@@ -12,3 +12,4 @@
 # include "GameState/GameState.h"
 # include "Scenes/TitleScene/TitleScene.h"
 # include "Scenes/IScene/IScene.h"
+# include "Scenes/PlayingScene/PlayingScene.h"

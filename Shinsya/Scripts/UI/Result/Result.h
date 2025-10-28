@@ -10,6 +10,7 @@ class Result
 public:
 	Result();
 	bool update();
+	void draw() const;
 	void Goal(float cleatTime);
 
 private:
