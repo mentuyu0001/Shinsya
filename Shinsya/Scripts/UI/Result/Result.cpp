@@ -32,3 +32,8 @@ void Result::Goal(float clearTime)
 	isGoal = true;
 	time = clearTime;
 }
+
+void Result::draw() const
+{
+	return;
+}

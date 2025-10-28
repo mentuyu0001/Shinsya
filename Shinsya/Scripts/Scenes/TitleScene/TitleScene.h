@@ -1,14 +1,13 @@
 ﻿#pragma once
 #include "stdafx.h"
-#include "Scenes/IScene/IScene.h"
 #include "UI/Button/Button.h"
 
-class TitleScene : public IScene
+class TitleScene
 {
 public:
 	TitleScene();
-	GameState update() override;
-	void draw() const override;
+	GameState update();
+	void draw() const;
 
 private:
 	Font m_font;
