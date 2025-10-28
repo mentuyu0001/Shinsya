@@ -14,14 +14,7 @@ DisplayTimer::DisplayTimer()
 
 void DisplayTimer::draw() const
 {
-	if (isGoal)
-	{
-		font(U"タイム: {:.2f}秒"_fmt(time)).draw(40, Vec2{ 40, 40 }, Palette::Black);
-	}
-	else
-	{
-		font(U"タイム: {:.2f}秒"_fmt(Scene::Time())).draw(40, Vec2{ 40, 40 }, Palette::Black);
-	}
+	font(U"タイム: {:.2f}秒"_fmt(time)).draw(40, Vec2{ 40, 40 }, Palette::Black);
 }
 
 void DisplayTimer::Goal()

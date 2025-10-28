@@ -11,7 +11,7 @@ GameState TitleScene::update()
 {
 	if (m_startButton.update())
 	{
-		return GameState::Playing; // ゲーム開始ボタンが押されたらPlaying状態を返す
+		return GameState::Ready; // ゲーム開始ボタンが押されたらReady状態を返す
 	}
 
 	if (m_exitButton.update())
@@ -24,6 +24,6 @@ GameState TitleScene::update()
 
 void TitleScene::draw() const
 {
-	// update内で描画処理を行うため、draw関数は空
-	return;
+	m_startButton.draw();
+	m_exitButton.draw();
 }

@@ -12,6 +12,7 @@ public:
 
 	// 更新と描画
 	bool update();
+	void draw(bool isActive = false) const;
 
 private:
 	RectF m_rect;

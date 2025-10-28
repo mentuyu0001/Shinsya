@@ -11,5 +11,5 @@
 # include "UI/Button/Button.h"
 # include "GameState/GameState.h"
 # include "Scenes/TitleScene/TitleScene.h"
-# include "Scenes/IScene/IScene.h"
+# include "Scenes/IAppScene/IAppScene.h"
 # include "Scenes/PlayingScene/PlayingScene.h"

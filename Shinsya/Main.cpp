@@ -1,4 +1,10 @@
 ﻿# include "stdafx.h"
+#include <memory>
+# include "Scenes/IAppScene/IAppScene.h"
+# include "Scripts/Scenes/TitleScene/TitleScene.h"
+# include "Scripts/Scenes/PlayingScene/PlayingScene.h"
+# include "Scripts/Scenes/ReadyScene/ReadyScene.h"
+
 
 
 /*
@@ -16,45 +22,59 @@ void Main()
 	// -----------------------------------
 	// ゲームステートの準備
 	// -----------------------------------
-	GameState gameState = GameState::Title;
-
-	// -----------------------------------
-	// 各シーンのオブジェクトを作成
-	// -----------------------------------
-	TitleScene titleScene;
-	PlayingScene playingScene;
+	GameState currentState = GameState::Title;
+	std::shared_ptr<IAppScene> currentScene = std::make_shared<TitleScene>();
 
 	while (System::Update())
 	{
+		const GameState nextState = currentScene->update();
+
+		// 2. 現在のシーンの描画処理を呼ぶ
+		currentScene->draw();
+
 		// -----------------------------------
 		// ゲームステートごとの処理
 		// -----------------------------------
-		switch (gameState)
+		if (nextState != currentState)
 		{
-		case GameState::Title:
-			// タイトル画面
-			titleScene.draw();
-			gameState = titleScene.update();
-			break;
-		case GameState::Ready:
-			// 芯車制作画面
-			break;
-		case GameState::Playing:
-			playingScene.draw();
-			gameState = playingScene.update();
-			break;
+			switch (nextState)
+			{
+			case GameState::Title:
+				// タイトル画面
+				currentScene = std::make_shared<TitleScene>();
+				break;
+			case GameState::Ready:
+				// 芯車制作画面
+				currentScene = std::make_shared<ReadyScene>();
+				break;
+				break;
+			case GameState::Playing:
+				// 現在のシーンがReadySceneであることを確認し、キャストする
+				if (auto readyScene = std::dynamic_pointer_cast<ReadyScene>(currentScene))
+				{
+					// ReadySceneから完成したグリッドデータを取得
+					const Grid<bool> design = readyScene->getGrid();
 
-		case GameState::Rnaking:
-			// ランキング表示
+					// そのデータを渡して、新しいPlayingSceneを作成する
+					currentScene = std::make_shared<PlayingScene>(design);
+				}
+				break;
 
-			break;
+			case GameState::Rnaking:
+				// ランキング表示
 
-		default:
-			// 予期せぬ状態遷移
-			throw std::runtime_error("ゲームが予期せない遷移をしました");
-			break;
+				break;
+
+			default:
+				// 予期せぬ状態遷移
+				throw std::runtime_error("ゲームが予期せない遷移をしました");
+				break;
+			}
+
+			// 現在の状態を更新
+			currentState = nextState;
 		}
-	}
+	}	
 }
 
 //
