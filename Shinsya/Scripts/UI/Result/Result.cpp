@@ -8,15 +8,28 @@ Result::Result()
 	: isGoal(false),
 	  time(0),
 	  font({ FontMethod::MSDF, 72, Typeface::Bold }),
-	  returnTitleButton({ RectF{ Arg::center = Scene::Center().movedBy(0, 100), 300, 80 }, Font{ 48, Typeface::Bold }, U"タイトルに戻る" })
+	  returnTitleButton({ RectF{ Arg::center = Scene::Center().movedBy(200, 100), 300, 80 }, Font{ 40, Typeface::Bold }, U"タイトルに戻る" }),
+	  resetButton({ RectF{ Arg::center = Scene::Center().movedBy(-200, 100), 300, 80 }, Font{ 40, Typeface::Bold }, U"リトライ" })
 {
 }
 
-bool Result::update()
+bool Result::titleUpdate()
 {
 	if (isGoal)
 	{
 		if (returnTitleButton.update())
+		{
+			return true;
+		}
+		return false;
+	}
+}
+
+bool Result::resetUpdate()
+{
+	if (isGoal)
+	{
+		if (resetButton.update())
 		{
 			return true;
 		}
@@ -38,5 +51,6 @@ void Result::draw() const
 		font(U"クリア！"_fmt(time)).draw(80, Arg::center = Scene::Center().movedBy(0, -150), ColorF{ 1, 0.7, 0.7 });
 		font(U"タイム: {:.2f}秒"_fmt(time)).draw(40, Arg::center = Scene::Center().movedBy(0, 0), Palette::White);
 		returnTitleButton.draw();
+		resetButton.draw();
 	}
 }

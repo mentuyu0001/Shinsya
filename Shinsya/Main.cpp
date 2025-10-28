@@ -4,6 +4,7 @@
 # include "Scripts/Scenes/TitleScene/TitleScene.h"
 # include "Scripts/Scenes/PlayingScene/PlayingScene.h"
 # include "Scripts/Scenes/ReadyScene/ReadyScene.h"
+# include "Scripts/Scenes/ExplainScene/ExplainScene.h"
 
 
 
@@ -25,6 +26,9 @@ void Main()
 	GameState currentState = GameState::Title;
 	std::shared_ptr<IAppScene> currentScene = std::make_shared<TitleScene>();
 
+	// ReadySceneから受け取った設計図を保持しておく変数
+	Grid<bool> lastDesign(70, 50, false);
+
 	while (System::Update())
 	{
 		const GameState nextState = currentScene->update();
@@ -43,23 +47,32 @@ void Main()
 				// タイトル画面
 				currentScene = std::make_shared<TitleScene>();
 				break;
+			case GameState::Explain:
+				// 説明画面
+				currentScene = std::make_shared<ExplainScene>();
+				break;
 			case GameState::Ready:
 				// 芯車制作画面
 				currentScene = std::make_shared<ReadyScene>();
-				break;
 				break;
 			case GameState::Playing:
 				// 現在のシーンがReadySceneであることを確認し、キャストする
 				if (auto readyScene = std::dynamic_pointer_cast<ReadyScene>(currentScene))
 				{
 					// ReadySceneから完成したグリッドデータを取得
-					const Grid<bool> design = readyScene->getGrid();
-
+					lastDesign = readyScene->getGrid();
 					// そのデータを渡して、新しいPlayingSceneを作成する
-					currentScene = std::make_shared<PlayingScene>(design);
+					currentScene = std::make_shared<PlayingScene>(lastDesign);
 				}
 				break;
-
+			case GameState::Reset:
+				{
+					// 保存しておいた設計図を使って、PlayingSceneを「新しく作り直す」
+					currentScene = std::make_shared<PlayingScene>(lastDesign);
+					currentState = GameState::Playing;
+					continue;
+				}
+				break;
 			case GameState::Rnaking:
 				// ランキング表示
 

@@ -26,6 +26,9 @@ bool Button::update()
 
 void Button::draw(bool isActive) const
 {
+	const RoundRect roundRect = m_rect.rounded(6);
+	roundRect.drawShadow(Vec2{ 2, 2 }, 12, 0);
+
 	if (isActive)
 	{
 		m_rect.rounded(6).draw(ColorF{ 0.6, 0.8, 1.0 }); // アクティブ時の色 (例: 明るい青)
@@ -40,6 +43,8 @@ void Button::draw(bool isActive) const
 		// 通常の色で背景を描画
 		m_rect.rounded(6).draw(ColorF{ 1.0 });
 	}
+
+	m_rect.stretched(-3).rounded(3).drawFrame(2, ColorF{ 0.4, 0.3, 0.2 });
 
 	// テキストを描画
 	m_font(m_text).drawAt(m_rect.center(), ColorF{ 0.1 });

@@ -36,9 +36,20 @@ GameState PlayingScene::update()
 	}
 
 	// リザルト画面で「タイトルに戻る」が押されたらTitle状態を返す
-	if (m_result.update())
+	if (m_result.titleUpdate())
 	{
 		return GameState::Title;
+	}
+	// リザルト画面で「リトライ」が押されたらReset状態を返す
+	else if (m_result.resetUpdate())
+	{
+		return GameState::Reset;
+	}
+
+	if (KeyR.down())
+	{
+		// Rキーが押されたら、Reset状態を返す
+		return GameState::Reset;
 	}
 
 	return GameState::Playing; // 何もなければPlaying状態のまま

@@ -9,7 +9,8 @@ class Result
 {
 public:
 	Result();
-	bool update();
+	bool titleUpdate();
+	bool resetUpdate();
 	void draw() const;
 	void Goal(float cleatTime);
 
@@ -18,5 +19,6 @@ private:
 	double time;
 	const Font font;
 	Button returnTitleButton;
+	Button resetButton;
 };
 

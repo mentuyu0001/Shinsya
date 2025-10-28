@@ -9,18 +9,18 @@ ReadyScene::ReadyScene()
 // メンバー変数を初期化
 	: m_blockGrid(70, 50, false)
 	, m_coreGrid(70, 50, false)
-	, m_font(48, Typeface::Bold)
+	, m_font(40, Typeface::Bold)
 	, m_currentMode(EditMode::Pen)
 	, m_penButton(RectF{ Arg::center = Scene::Center().movedBy(500, -200), 250, 80 }, m_font, U"ペン")
 	, m_eraserButton(RectF{ Arg::center = Scene::Center().movedBy(500, -100), 250, 80 }, m_font, U"消しゴム")
-	, m_startButton(RectF{ Arg::center = Scene::Center().movedBy(0, 300), 300, 80 }, m_font, U"これで開始！")
+	, m_startButton(RectF{ Arg::center = Scene::Center().movedBy(0, 270), 300, 80 }, m_font, U"これで開始！")
 	, m_elapsedTime(0.0)
 	, m_previewCenter(Scene::Center().movedBy(500, 250))
 {
 	// グリッド全体のサイズを計算
 	const Size totalGridSize = (m_blockGrid.size() * m_blockSize);
 	// 画面中央に配置されるように描画領域を設定
-	m_gridRect = RectF{ Arg::center = Scene::Center(), totalGridSize };
+	m_gridRect = RectF{ Arg::center = Scene::Center().movedBy(0, -50), totalGridSize };
 
 
 	// プレビュー用の図形を初期化
