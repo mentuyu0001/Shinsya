@@ -20,7 +20,7 @@ void Main()
 	// -----------------------------------
 	// ゲームステートの準備
 	// -----------------------------------
-	std::shared_ptr<IScene> currentScene = std::make_shared<TitleScene>();
+	GameState gameState = GameState::Title;
 
 	// -----------------------------------
 	// 各シーンのオブジェクトを作成
@@ -69,9 +69,6 @@ void Main()
 
 	while (System::Update())
 	{
-		const GameState nextState = currentScene->update();
-		currentScene->draw();
-
 		// -----------------------------------
 		// ゲームステートごとの処理
 		// -----------------------------------
