@@ -8,6 +8,7 @@
 ReadyScene::ReadyScene()
 // メンバー変数を初期化
 	: m_blockGrid(70, 50, false)
+	, m_coreGrid(70, 50, false)
 	, m_font(48, Typeface::Bold)
 	, m_currentMode(EditMode::Pen)
 	, m_penButton(RectF{ Arg::center = Scene::Center().movedBy(500, -200), 250, 80 }, m_font, U"ペン")
@@ -27,6 +28,36 @@ ReadyScene::ReadyScene()
 	m_previewBody = RectF{ Arg::center = m_previewCenter, carBodySize * m_previewScale };
 	m_previewWheelL = Circle{ m_previewCenter + Vec2{ -50, 20 } *m_previewScale, 30 * m_previewScale };
 	m_previewWheelR = Circle{ m_previewCenter + Vec2{ 50, 20 } *m_previewScale, 30 * m_previewScale };
+
+	const int32 centerX = m_blockGrid.width() / 2; // グリッドのX方向中心 (35)
+	const int32 crossbarWidth = 12; // 横棒の幅 (偶数にすると綺麗)
+	
+	// 横棒を配置
+	for (int32 x = centerX - (crossbarWidth / 2); x < centerX + (crossbarWidth / 2); ++x)
+	{
+		// グリッドの一番上の行 (y=0) に横棒を置く
+		if (m_blockGrid.inBounds(0, x))
+		{
+			m_blockGrid[0][x] = true;
+			m_coreGrid[0][x] = true; // ここは「芯」であると記憶
+		}
+	}
+
+	// 縦棒を配置
+	for (int32 y = 0; y < m_blockGrid.height(); ++y)
+	{
+		// 中心2マスを縦棒として使う
+		if (m_blockGrid.inBounds(y, centerX - 1))
+		{
+			m_blockGrid[y][centerX - 1] = true;
+			m_coreGrid[y][centerX - 1] = true; // ここは「芯」であると記憶
+		}
+		if (m_blockGrid.inBounds(y, centerX))
+		{
+			m_blockGrid[y][centerX] = true;
+			m_coreGrid[y][centerX] = true; // ここは「芯」であると記憶
+		}
+	}
 }
 
 GameState ReadyScene::update()
@@ -57,7 +88,10 @@ GameState ReadyScene::update()
 				}
 				else if (m_currentMode == EditMode::Eraser)
 				{
-					m_blockGrid[y][x] = false; // 消しゴムモードならブロックを消す
+					if (not m_coreGrid[y][x])
+					{
+						m_blockGrid[y][x] = false;
+					}
 				}
 			}
 		}
@@ -82,7 +116,14 @@ void ReadyScene::draw() const
 			// ブロックが置かれていたら、色を付けて描画
 			if (m_blockGrid[y][x])
 			{
-				cellRect.draw(Palette::Orange);
+				if (m_coreGrid[y][x])
+				{
+					cellRect.draw(ColorF{ 0.7 }); // 「芯」の色 (例: グレー)
+				}
+				else
+				{
+					cellRect.draw(Palette::Orange); // プレイヤーが置いたブロックの色
+				}
 			}
 
 			// マス目の枠線を描画
