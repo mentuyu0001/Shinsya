@@ -64,6 +64,21 @@ void Car::jump(double force)
 	}
 }
 
+void Car::stop()
+{
+	// ボディのタイプを「動的」から「静的」に変更する
+	body.setAwake(false);
+
+	// タイヤも同様に止める
+	wheelL.setAwake(false);
+	wheelR.setAwake(false);
+}
+
+Vec2 Car::getPosition() const
+{
+	return body.getPos();
+}
+
 P2Body Car::getBody()
 {
 	return body;

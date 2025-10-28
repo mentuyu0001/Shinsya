@@ -11,6 +11,8 @@ public:
 	void draw() const;
 	void setMotorSpeed(double speed);
 	void jump(double force);
+	void stop();
+	Vec2 getPosition() const;
 	P2Body getBody();
 
 private:

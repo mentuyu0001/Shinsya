@@ -12,6 +12,7 @@ public:
 	void Goal();
 	bool getIsGoal() const;
 	void addTime();
+	float getTime() const;
 
 private:
 	bool isGoal;

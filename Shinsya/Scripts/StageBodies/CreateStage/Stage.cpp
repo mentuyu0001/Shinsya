@@ -7,7 +7,7 @@
 Stage::Stage(P2World& world)
 {
 	// 作成したボディを、m_staticBodies配列にどんどん追加していく
-	m_staticBodies.push_back(world.createRect(P2BodyType::Static, Vec2{ 400, 400 }, SizeF{ 500, 10 }));
+	m_staticBodies.push_back(world.createRect(P2BodyType::Static, Vec2{ 640, 500 }, SizeF{ 1000, 10 }));
 }
 
 void Stage::draw() const

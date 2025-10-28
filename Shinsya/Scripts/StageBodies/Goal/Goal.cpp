@@ -5,7 +5,7 @@
 */
 
 Goal::Goal(P2World& world)
-	: goal(world.createRect(P2BodyType::Static, Vec2{ 700, 400 }, SizeF{ 50, 200 })),
+	: goal(world.createRect(P2BodyType::Static, Vec2{ 1000, 400 }, SizeF{ 50, 200 })),
 	  goalID(goal.id()),
 	  world(world)
 {
