@@ -3,6 +3,7 @@
 # include "Scenes/IAppScene/IAppScene.h"
 # include "Scripts/Scenes/TitleScene/TitleScene.h"
 # include "Scripts/Scenes/PlayingScene/PlayingScene.h"
+# include "Scripts/Scenes/ReadyScene/ReadyScene.h"
 
 
 
@@ -12,12 +13,6 @@
 
 void Main()
 {
-	// --- テスト用のブロック配置データを作成 ---
-	Grid<bool> myDesign(70, 50, false);
-	//myDesign[24][25] = false;
-	//myDesign[25][25] = false;
-	//myDesign[26][25] = false;
-
 	// 画面を 1280x720 にリサイズする
 	Window::Resize(1280, 720);
 
@@ -29,12 +24,6 @@ void Main()
 	// -----------------------------------
 	GameState currentState = GameState::Title;
 	std::shared_ptr<IAppScene> currentScene = std::make_shared<TitleScene>();
-
-	// -----------------------------------
-	// 各シーンのオブジェクトを作成
-	// -----------------------------------
-	TitleScene titleScene;
-	PlayingScene playingScene(myDesign);
 
 	while (System::Update())
 	{
@@ -56,9 +45,19 @@ void Main()
 				break;
 			case GameState::Ready:
 				// 芯車制作画面
+				currentScene = std::make_shared<ReadyScene>();
+				break;
 				break;
 			case GameState::Playing:
-				currentScene = std::make_shared<PlayingScene>(myDesign);
+				// 現在のシーンがReadySceneであることを確認し、キャストする
+				if (auto readyScene = std::dynamic_pointer_cast<ReadyScene>(currentScene))
+				{
+					// ReadySceneから完成したグリッドデータを取得
+					const Grid<bool> design = readyScene->getGrid();
+
+					// そのデータを渡して、新しいPlayingSceneを作成する
+					currentScene = std::make_shared<PlayingScene>(design);
+				}
 				break;
 
 			case GameState::Rnaking:
