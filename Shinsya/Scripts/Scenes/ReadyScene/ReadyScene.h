@@ -25,6 +25,7 @@ public:
 private:
 	// グリッドのデータ本体 (70x50)
 	Grid<bool> m_blockGrid;
+	Grid<bool> m_coreGrid;
 
 	// UI部品
 	Font m_font;
