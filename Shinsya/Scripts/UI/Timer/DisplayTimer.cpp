@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "DisplayTimer.h"
 
 /*
 // タイマーを表示するスクリプト

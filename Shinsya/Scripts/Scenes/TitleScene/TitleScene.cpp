@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "TitleScene.h"
 
 TitleScene::TitleScene()
 	: m_font(40, Typeface::Bold)

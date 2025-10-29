@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "Goal.h"
 
 /*
 // ゴール生成と判定を行うスクリプト

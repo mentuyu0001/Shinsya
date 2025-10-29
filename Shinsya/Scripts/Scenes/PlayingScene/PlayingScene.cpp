@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "PlayingScene.h"
 
 
 // コンストラクタで、Mainにあったオブジェクトをすべて初期化する
