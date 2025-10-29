@@ -7,6 +7,7 @@ PlayingScene::PlayingScene(Grid<bool> myDesign)
 	: m_world(98 * 3)
 	, m_stage(m_world)
 	, m_goal(m_world)
+	, font({ FontMethod::MSDF, 48, Typeface::Bold })
 	, m_car(m_world, Scene::Center(), 0.05, m_stage.getBodies(), myDesign)
 	, m_timer()
 	, m_result()
@@ -65,6 +66,8 @@ void PlayingScene::draw() const
 		m_car.draw();
 	}
 	{
+		const String resetText = U"Rキー：リセット";
+		font(resetText).draw(40, Vec2{ 40, 100 }, Palette::Black);
 		m_timer.draw();
 		m_result.draw();
 	}
