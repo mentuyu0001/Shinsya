@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "Stage.h"
 
 /*
 // ステージ制作を行うスクリプト

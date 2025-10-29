@@ -1,4 +1,7 @@
 ﻿#pragma once
+# include "stdafx.h"
+# include "Scenes/IAppScene/IAppScene.h"
+# include "UI/Button/Button.h"
 
 /*
 // 芯車制作画面のシーンクラス

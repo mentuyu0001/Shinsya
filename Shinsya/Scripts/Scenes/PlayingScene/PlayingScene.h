@@ -1,9 +1,11 @@
 ﻿#pragma once
 #include "stdafx.h"
-#include "GameState/GameState.h"
 #include "PlayerCar/Car.h"
+#include "UI/Timer/DisplayTimer.h"
 #include "StageBodies/CreateStage/Stage.h"
-#include "Scenes/IAppScene/IAppScene.h" // 既存の include の下に追加
+#include "UI/Result/Result.h"
+#include "StageBodies/Goal/Goal.h"
+#include "Scenes/IAppScene/IAppScene.h"
 
 class PlayingScene : public IAppScene
 {

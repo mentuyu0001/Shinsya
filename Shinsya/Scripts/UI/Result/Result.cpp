@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "Result.h"
 
 /*
 // リザルト画面を表示するスクリプト
