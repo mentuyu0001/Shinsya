@@ -3,8 +3,9 @@
 
 TitleScene::TitleScene()
 	: m_font(40, Typeface::Bold)
-	, m_startButton(RectF{ Arg::center = Scene::Center(), 300, 80 }, m_font, U"スタート")
-	, m_exitButton(RectF{ Arg::center = Scene::Center().movedBy(0, 100), 300, 80 }, m_font, U"ゲーム終了")
+	, m_startButton(RectF{ Arg::center = Scene::Center().movedBy(0, 50), 300, 80 }, m_font, U"スタート")
+	, m_exitButton(RectF{ Arg::center = Scene::Center().movedBy(0, 150), 300, 80 }, m_font, U"ゲーム終了")
+	, texture(U"Assets/Images/Title/Title.png")
 {
 }
 
@@ -25,6 +26,7 @@ GameState TitleScene::update()
 
 void TitleScene::draw() const
 {
+	texture.draw(0, 0);
 	m_startButton.draw();
 	m_exitButton.draw();
 }

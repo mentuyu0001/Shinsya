@@ -15,6 +15,7 @@ public:
 	void draw() const override;
 
 private:
+	const Texture texture;
 	P2World m_world;
 	Stage m_stage;
 	Goal m_goal;

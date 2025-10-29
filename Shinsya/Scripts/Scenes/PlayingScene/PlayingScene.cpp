@@ -4,7 +4,8 @@
 
 // コンストラクタで、Mainにあったオブジェクトをすべて初期化する
 PlayingScene::PlayingScene(Grid<bool> myDesign)
-	: m_world(98 * 3)
+	: texture(U"Assets/Images/Stage/Background.png")
+	, m_world(98 * 3)
 	, m_stage(m_world)
 	, m_goal(m_world)
 	, font({ FontMethod::MSDF, 48, Typeface::Bold })
@@ -59,6 +60,9 @@ GameState PlayingScene::update()
 
 void PlayingScene::draw() const
 {
+	{
+		texture.draw(0, 0);
+	}
 	{
 		const auto t = m_camera.createTransformer();
 		m_stage.draw();

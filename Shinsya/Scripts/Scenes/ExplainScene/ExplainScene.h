@@ -17,4 +17,5 @@ private:
 	Font m_font_text;
 	Font m_font_button;
 	Button m_startButton;
+	const Texture texture;
 };
