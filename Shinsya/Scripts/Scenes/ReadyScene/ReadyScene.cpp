@@ -7,7 +7,8 @@
 
 ReadyScene::ReadyScene()
 // メンバー変数を初期化
-	: m_blockGrid(70, 50, false)
+	: texture(U"Assets/Images/Title/Title.png")
+	, m_blockGrid(70, 50, false)
 	, m_coreGrid(70, 50, false)
 	, m_font(40, Typeface::Bold)
 	, m_currentMode(EditMode::Pen)
@@ -102,6 +103,8 @@ GameState ReadyScene::update()
 
 void ReadyScene::draw() const
 {
+	texture.draw(0, 0);
+
 	// グリッドの背景を少し暗く描画
 	m_gridRect.draw(ColorF{ 0.2, 0.2, 0.2 });
 

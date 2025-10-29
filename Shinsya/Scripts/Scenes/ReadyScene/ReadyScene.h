@@ -26,6 +26,8 @@ public:
 	const Grid<bool>& getGrid() const;
 
 private:
+	const Texture texture;
+
 	// グリッドのデータ本体 (70x50)
 	Grid<bool> m_blockGrid;
 	Grid<bool> m_coreGrid;
