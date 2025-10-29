@@ -6,7 +6,7 @@
 */
 
 Goal::Goal(P2World& world)
-	: goal(world.createRect(P2BodyType::Static, Vec2{ 1000, 400 }, SizeF{ 50, 200 })),
+	: goal(world.createRect(P2BodyType::Static, Vec2{ 3170, 77 }, SizeF{ 100, 1000 })),
 	  goalID(goal.id()),
 	  world(world)
 {
@@ -15,7 +15,7 @@ Goal::Goal(P2World& world)
 
 void Goal::draw() const
 {
-	goal.draw(ColorF(1, 0, 0, 0.3));
+	goal.draw(ColorF(1, 0, 0, 0.5));
 }
 
 bool Goal::GoalChecker(P2Body player)

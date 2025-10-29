@@ -137,6 +137,8 @@ void ReadyScene::draw() const
 	m_penButton.draw(m_currentMode == EditMode::Pen);
 	m_eraserButton.draw(m_currentMode == EditMode::Eraser);
 	m_startButton.draw();
+	const String previewText = U"芯車プレビュー";
+	m_font(previewText).draw(35, Vec2{ 1015, 380 }, Palette::Black);
 
 	{
 		// プレビュー描画用の座標系を作成
