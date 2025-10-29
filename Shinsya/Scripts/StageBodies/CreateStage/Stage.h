@@ -14,5 +14,6 @@ public:
 	const Array<P2Body>& getBodies() const;
 
 private:
+	Texture m_texture;
 	Array<P2Body> m_staticBodies;
 };
