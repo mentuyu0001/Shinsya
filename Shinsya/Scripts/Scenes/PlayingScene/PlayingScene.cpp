@@ -14,6 +14,7 @@ PlayingScene::PlayingScene(Grid<bool> myDesign)
 	, m_result()
 	, m_camera(m_car.getPosition(), 1.0, CameraControl::None_)
 {
+	StartBGM();
 }
 
 GameState PlayingScene::update()
@@ -36,6 +37,7 @@ GameState PlayingScene::update()
 		m_timer.Goal();
 		m_result.Goal(m_timer.getTime());
 		m_car.stop();
+		StopBGM();
 	}
 
 	// リザルト画面で「タイトルに戻る」が押されたらTitle状態を返す
@@ -54,10 +56,11 @@ GameState PlayingScene::update()
 		// Rキーが押されたら、Reset状態を返す
 		return GameState::Reset;
 	}
-	if (KeyC.down())
+	if (KeyU.down())
 	{
-		// Cキーが押されたら、Ready状態を返す
-		return GameState::Ready;
+		// Cキーが押されたら、Title状態を返す
+		StopBGM();
+		return GameState::Title;
 	}
 
 	return GameState::Playing; // 何もなければPlaying状態のまま
@@ -77,9 +80,28 @@ void PlayingScene::draw() const
 	{
 		const String resetText = U"Rキー：リセット";
 		font(resetText).draw(40, Vec2{ 40, 100 }, Palette::Black);
-		const String createText = U"Cキー：芯車を作り直す";
+		const String createText = U"Uキー：タイトルに戻る";
 		font(createText).draw(40, Vec2{ 40, 160 }, Palette::Black);
 		m_timer.draw();
 		m_result.draw();
 	}
+}
+
+Audio& PlayingScene::GetBGM()
+{
+	static Audio bgm{ U"Assets/Sounds/BGM/PlayBGM.mp3", Loop::Yes };
+	return bgm;
+}
+
+void PlayingScene::StartBGM()
+{
+	// まだ再生されていなければ、再生を開始する
+	if (not GetBGM().isPlaying())
+	{
+		GetBGM().play();
+	}
+}
+void PlayingScene::StopBGM()
+{
+	GetBGM().stop();
 }

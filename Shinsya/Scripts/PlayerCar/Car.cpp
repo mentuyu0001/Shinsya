@@ -71,15 +71,22 @@ void Car::jump(double force)
 	{
 		for (const auto& groundid : groundID)
 		{
+			bool jumped = false;
 			// 衝突のうち片方が地面の ID であれば、もう片方が地面と接触しているボディ
 			if (pair.a == groundid && pair.b == wheelLID || pair.a == wheelLID && pair.b == groundid)
 			{
 				wheelL.applyLinearImpulse(Vec2{ 0, -force });
+				jumped = true;
 			}
 
 			if (pair.a == groundid && pair.b == wheelRID || pair.a == wheelRID && pair.b == groundid)
 			{
 				wheelR.applyLinearImpulse(Vec2{ 0, -force });
+				jumped = true;
+			}
+			if (jumped)
+			{
+				getJumpSound().playOneShot();
 			}
 		}
 	}
@@ -113,4 +120,10 @@ P2Body Car::getWheelL()
 P2Body Car::getWheelR()
 {
 	return wheelR;
+}
+
+Audio& Car::getJumpSound()
+{
+	static Audio sound{ U"Assets/Sounds/SE/Jump.mp3" };
+	return sound;
 }

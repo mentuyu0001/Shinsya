@@ -27,5 +27,6 @@ private:
 	const P2BodyID wheelLID;
 	const P2BodyID wheelRID;
 	P2World& world;
+	static Audio& getJumpSound();
 };
 

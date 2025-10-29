@@ -15,8 +15,10 @@ public:
 	bool GoalChecker(P2Body player);
 
 private:
+	bool m_isReached = false;
 	P2Body goal;
 	P2BodyID goalID;
 	P2World& world;
+	static Audio& getGoalSound();
 };
 

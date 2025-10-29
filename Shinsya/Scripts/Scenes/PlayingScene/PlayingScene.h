@@ -13,6 +13,8 @@ public:
 	PlayingScene(Grid<bool> myDesign);
 	GameState update() override;
 	void draw() const override;
+	static void StartBGM();
+	static void StopBGM();
 
 private:
 	const Texture texture;
@@ -26,4 +28,5 @@ private:
 	Camera2D m_camera;
 	int32 m_motorSpeed = 0;
 	const double m_jumpImpulse = 300.0;
+	static Audio& GetBGM();
 };

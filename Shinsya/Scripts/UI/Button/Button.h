@@ -18,5 +18,8 @@ private:
 	RectF m_rect;
 	Font m_font;
 	String m_text;
+	bool m_wasHovered = false;
+	static Audio& getSelectSound();
+	static Audio& getClickSound();
 };
 

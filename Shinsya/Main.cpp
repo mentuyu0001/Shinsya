@@ -20,6 +20,9 @@ void Main()
 	// 背景色を設定
 	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
 
+	// BGMの準備
+	Audio bgm{ U"Assets/Sounds/BGM/TitleBGM.mp3", Loop::Yes };
+
 	// -----------------------------------
 	// ゲームステートの準備
 	// -----------------------------------
@@ -59,6 +62,8 @@ void Main()
 				// 現在のシーンがReadySceneであることを確認し、キャストする
 				if (auto readyScene = std::dynamic_pointer_cast<ReadyScene>(currentScene))
 				{
+					// BGMを停止する
+					bgm.stop();
 					// ReadySceneから完成したグリッドデータを取得
 					lastDesign = readyScene->getGrid();
 					// そのデータを渡して、新しいPlayingSceneを作成する
@@ -86,6 +91,12 @@ void Main()
 
 			// 現在の状態を更新
 			currentState = nextState;
+		}
+
+		if (currentState == GameState::Title && !bgm.isPlaying())
+		{
+			// タイトル画面でBGMが再生されていなければ再生する
+			bgm.play();
 		}
 	}	
 }
