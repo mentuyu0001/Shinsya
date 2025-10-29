@@ -20,6 +20,7 @@ private:
 	Goal m_goal;
 	Car m_car;
 	DisplayTimer m_timer;
+	Font font;
 	Result m_result;
 	Camera2D m_camera;
 	int32 m_motorSpeed = 0;
