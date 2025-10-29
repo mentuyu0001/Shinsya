@@ -14,15 +14,26 @@ Button::Button(const RectF& rect, const Font& font, const String& text)
 
 bool Button::update()
 {
-	if (m_rect.mouseOver())
+	// 現在のフレームでホバーしているかを取得
+	const bool isHovered = m_rect.mouseOver();
+
+	if (isHovered && !m_wasHovered)
 	{
 		// カーソルを手の形にする
 		Cursor::RequestStyle(CursorStyle::Hand);
+		// ボタンがホバーされたときの効果音を再生
+		getSelectSound().playOneShot();
 	}
 
+	m_wasHovered = isHovered;
 
-	// ボタンが左クリックされたフレームなら true を返す
-	return m_rect.leftClicked();
+	if (m_rect.leftClicked())
+	{
+		// ボタンがクリックされたときの効果音を再生
+		getClickSound().playOneShot();
+		return true;
+	}
+	return false;
 }
 
 void Button::draw(bool isActive) const
@@ -49,4 +60,16 @@ void Button::draw(bool isActive) const
 
 	// テキストを描画
 	m_font(m_text).drawAt(m_rect.center(), ColorF{ 0.1 });
+}
+
+Audio& Button::getSelectSound()
+{
+	static Audio sound{ U"Assets/Sounds/SE/ButtonSelect.mp3" };
+	return sound;
+}
+
+Audio& Button::getClickSound()
+{
+	static Audio sound{ U"Assets/Sounds/SE/ButtonClick.mp3" };
+	return sound;
 }

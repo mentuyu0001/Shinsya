@@ -27,9 +27,21 @@ bool Goal::GoalChecker(P2Body player)
 	{
 		if (pair.a == playerid && pair.b == goalID || pair.a == goalID && pair.b == playerid)
 		{
+			if (!m_isReached)
+			{
+				getGoalSound().playOneShot();
+
+				m_isReached = true;
+			}
 			return true;
 		}
 	}
 
 	return false;
+}
+
+Audio& Goal::getGoalSound()
+{
+	static Audio sound{ U"Assets/Sounds/SE/Goal.mp3" };
+	return sound;
 }
