@@ -16,7 +16,7 @@ ReadyScene::ReadyScene()
 	, m_eraserButton(RectF{ Arg::center = Scene::Center().movedBy(500, -100), 250, 80 }, m_font, U"消しゴム")
 	, m_startButton(RectF{ Arg::center = Scene::Center().movedBy(0, 270), 300, 80 }, m_font, U"これで開始！")
 	, m_elapsedTime(0.0)
-	, m_previewCenter(Scene::Center().movedBy(500, 250))
+	, m_previewCenter(Scene::Center().movedBy(500, 225))
 {
 	// グリッド全体のサイズを計算
 	const Size totalGridSize = (m_blockGrid.size() * m_blockSize);
@@ -25,7 +25,7 @@ ReadyScene::ReadyScene()
 
 
 	// プレビュー用の図形を初期化
-	const SizeF carBodySize = { 200, 40 };
+	const SizeF carBodySize = { 200, 20 };
 	m_previewBody = RectF{ Arg::center = m_previewCenter, carBodySize * m_previewScale };
 	m_previewWheelL = Circle{ m_previewCenter + Vec2{ -50, 20 } *m_previewScale, 30 * m_previewScale };
 	m_previewWheelR = Circle{ m_previewCenter + Vec2{ 50, 20 } *m_previewScale, 30 * m_previewScale };
@@ -149,24 +149,28 @@ void ReadyScene::draw() const
 		m_previewWheelL.movedBy(-m_previewCenter).draw(ColorF{ 0.25 });
 		m_previewWheelR.movedBy(-m_previewCenter).draw(ColorF{ 0.25 });
 
-		// グリッドのブロックを、縮小してプレビュー車台の上に描画
-		const SizeF carBodySize = { 200, 40 };
-		const double gridTopY = (-40 / 2.0) - (m_blockGrid.height() * m_blockSize.y);
+		// Carクラスのコンストラクタで使われている値と完全に一致させる
+		const SizeF carBodySize = { 200, 20 };
+		const Size carBlockSize = { 5, 5 }; // Carクラス内部で実際に使われるブロックサイズ
 
+		// Carクラスと全く同じロジックで、ブロック配置の基準となるY座標を計算
+		const double gridTopY = (-carBodySize.y / 2.0) - (m_blockGrid.height() * carBlockSize.y);
+
+		// グリッドのブロックを、縮小してプレビュー車台の上に描画
 		for (auto y : step(m_blockGrid.height()))
 		{
 			for (auto x : step(m_blockGrid.width()))
 			{
 				if (m_blockGrid[y][x])
 				{
-					// ブロックの相対位置を計算
+					// Carクラスと全く同じロジックで、各ブロックの相対位置を計算
 					const Vec2 offset = {
-						(x - m_blockGrid.width() / 2.0 + 0.5) * m_blockSize.x,
-						gridTopY + (y + 0.5) * m_blockSize.y
+						(x - m_blockGrid.width() / 2.0 + 0.5) * carBlockSize.x,
+						gridTopY + (y + 0.5) * carBlockSize.y
 					};
 
-					// 縮小して描画
-					RectF{ Arg::center = (offset * m_previewScale), m_blockSize * m_previewScale }.draw(Palette::Orange);
+					// 計算したoffsetとブロックサイズを、プレビュー用に縮小して描画
+					RectF{ Arg::center = (offset * m_previewScale), carBlockSize * m_previewScale }.draw(Palette::Orange);
 				}
 			}
 		}
