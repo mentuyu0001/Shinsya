@@ -52,5 +52,5 @@ private:
 	RectF m_previewBody;      // プレビュー用の車台
 	Circle m_previewWheelL;    // プレビュー用の左タイヤ
 	Circle m_previewWheelR;    // プレビュー用の右タイヤ
-	static constexpr double m_previewScale = 0.3; // プレビューの縮尺
+	static constexpr double m_previewScale = 0.5; // プレビューの縮尺
 };

@@ -9,7 +9,7 @@ PlayingScene::PlayingScene(Grid<bool> myDesign)
 	, m_stage(m_world)
 	, m_goal(m_world)
 	, font({ FontMethod::MSDF, 48, Typeface::Bold })
-	, m_car(m_world, Scene::Center().movedBy(0,100), 0.05, m_stage.getBodies(), myDesign)
+	, m_car(m_world, Scene::Center().movedBy(15,100), 0.05, m_stage.getBodies(), myDesign)
 	, m_timer()
 	, m_result()
 	, m_camera(m_car.getPosition(), 1.0, CameraControl::None_)
@@ -79,9 +79,15 @@ void PlayingScene::draw() const
 	}
 	{
 		const String resetText = U"Rキー：リセット";
-		font(resetText).draw(40, Vec2{ 40, 100 }, Palette::Black);
+		font(resetText).draw(20, Vec2{ 40, 110 }, Palette::Black);
 		const String createText = U"Uキー：タイトルに戻る";
-		font(createText).draw(40, Vec2{ 40, 160 }, Palette::Black);
+		font(createText).draw(20, Vec2{ 40, 150 }, Palette::Black);
+		const String moveTextR = U"→キー・右クリック：前進";
+		font(moveTextR).draw(20, Vec2{ 40, 190 }, Palette::Black);
+		const String moveText = U"←キー・左クリック：後退";
+		font(moveText).draw(20, Vec2{ 40, 230 }, Palette::Black);
+		const String jumpText = U"スペースキー：ジャンプ";
+		font(jumpText).draw(20, Vec2{ 40, 270 }, Palette::Black);
 		m_timer.draw();
 		m_result.draw();
 	}
