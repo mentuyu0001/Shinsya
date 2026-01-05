@@ -4,7 +4,7 @@
 
 一本の長い「芯」を持つ特殊な車を操作し、重心をカスタマイズしながらゴールを目指す2D物理アクションゲームです。
 
-## プレイ動画・スクリーンショット
+## プレイ動画
 
 [<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/f45bc01a-b598-4ed0-8886-f90a6f20f839" />](https://youtu.be/HpbfzChJnQ8)
 
