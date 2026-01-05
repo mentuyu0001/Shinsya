@@ -4,6 +4,8 @@
 
 一本の長い「芯」を持つ特殊な車を操作し、重心をカスタマイズしながらゴールを目指す2D物理アクションゲームです。
 
+![アリアドネの対価_プレイ動画-12 (1)](https://github.com/user-attachments/assets/e873c88b-65b1-4a4d-9e9d-301cebcc7c4e)
+
 ## プレイ動画
 
 [<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/f45bc01a-b598-4ed0-8886-f90a6f20f839" />](https://youtu.be/HpbfzChJnQ8)
@@ -22,8 +24,6 @@
 ![ae46aaf3cca7544c9efa0f77ef4e8d8e](https://github.com/user-attachments/assets/e4a57b9b-36c2-4fad-ab95-343604e77459)
 
 
-
-
 * **トレードオフの設計**:
     * ブロックを多く置く → **安定するが、重くて遅い**
     * ブロックを減らす → **速いが、転倒しやすい**
@@ -38,6 +38,7 @@
 作成した芯車で障害物だらけのステージを走破します。
 ジャンプ時の衝撃や坂道でバランスを崩さないよう、繊細な操作と事前のカスタマイズが重要になります。
 
+![Snapshot_8 JPG](https://github.com/user-attachments/assets/08ec4c92-6e37-4f82-a509-e3cc1224db81)
 
 
 ## 操作方法
