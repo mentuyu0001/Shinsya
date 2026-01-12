@@ -13,6 +13,7 @@ PlayingScene::PlayingScene(Grid<bool> myDesign)
 	, m_timer()
 	, m_result()
 	, m_camera(m_car.getPosition(), 1.0, CameraControl::None_)
+	, m_signboard(780, 300, 0.15)
 {
 	StartBGM();
 }
@@ -73,6 +74,7 @@ void PlayingScene::draw() const
 	}
 	{
 		const auto t = m_camera.createTransformer();
+		m_signboard.draw();
 		m_stage.draw();
 		m_goal.draw();
 		m_car.draw();
@@ -82,12 +84,6 @@ void PlayingScene::draw() const
 		font(resetText).draw(20, Vec2{ 40, 110 }, Palette::Black);
 		const String createText = U"Uキー：タイトルに戻る";
 		font(createText).draw(20, Vec2{ 40, 150 }, Palette::Black);
-		const String moveTextR = U"→キー・右クリック：前進";
-		font(moveTextR).draw(20, Vec2{ 40, 190 }, Palette::Black);
-		const String moveText = U"←キー・左クリック：後退";
-		font(moveText).draw(20, Vec2{ 40, 230 }, Palette::Black);
-		const String jumpText = U"スペースキー：ジャンプ";
-		font(jumpText).draw(20, Vec2{ 40, 270 }, Palette::Black);
 		m_timer.draw();
 		m_result.draw();
 	}

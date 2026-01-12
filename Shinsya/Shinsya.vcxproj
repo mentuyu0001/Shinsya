@@ -132,6 +132,7 @@
     </ClCompile>
     <ClCompile Include="Scripts\UI\Timer\DisplayTimer.cpp" />
     <ClCompile Include="Scripts\Scenes\TitleScene\TitleScene.cpp" />
+    <ClCompile Include="Scripts\StageBodies\Signboard\Signboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -350,6 +351,7 @@
     <ClInclude Include="Scripts\stdafx.h" />
     <ClInclude Include="Scripts\UI\Timer\DisplayTimer.h" />
     <ClInclude Include="Scripts\Scenes\TitleScene\TitleScene.h" />
+    <ClInclude Include="Scripts\StageBodies\Signboard\Signboard.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\example\obj\blacksmith.obj">

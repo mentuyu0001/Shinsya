@@ -6,6 +6,7 @@
 #include "UI/Result/Result.h"
 #include "StageBodies/Goal/Goal.h"
 #include "Scenes/IAppScene/IAppScene.h"
+#include "StageBodies/Signboard/Signboard.h"
 
 class PlayingScene : public IAppScene
 {
@@ -29,4 +30,5 @@ private:
 	int32 m_motorSpeed = 0;
 	const double m_jumpImpulse = 300.0;
 	static Audio& GetBGM();
+	Signboard m_signboard;
 };
