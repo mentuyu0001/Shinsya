@@ -1,10 +1,6 @@
 ﻿#include "stdafx.h"
 #include "ExplainScene.h"
 
-/*
- // 説明画面のシーンクラス
- */
-
 ExplainScene::ExplainScene()
 	: m_font_text(28, Typeface::Bold)
 	, m_font_button(40, Typeface::Bold)

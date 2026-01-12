@@ -1,14 +1,16 @@
 ﻿#pragma once
 
-/*
-UI表示を行うヘッダーファイル
-*/
+/// <summary>
+/// 操作説明を行うクラス
+/// </summary>
 
 class Signboard
 {
 public:
+	/// <summary> 操作説明UIの生成 </summary>
 	Signboard(int in_x, int in_y, float scale);
-	// 描画する
+
+	/// <summary> 操作説明UIの描画 </summary>
 	void draw() const;
 
 private:

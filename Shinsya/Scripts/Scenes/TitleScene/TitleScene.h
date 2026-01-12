@@ -3,11 +3,21 @@
 #include "Scenes/IAppScene/IAppScene.h"
 #include "UI/Button/Button.h"
 
+/// <summary>
+/// タイトルシーンのクラス
+/// </summary>
+
+
 class TitleScene : public IAppScene
 {
 public:
+	/// <summary> タイトルシーンの生成 </summary>
 	TitleScene();
+
+	/// <summary> 次シーンへの遷移 </summary>
 	GameState update() override;
+
+	/// <summary> タイトルシーン全体の描画 </summary>
 	void draw() const override;
 
 private:

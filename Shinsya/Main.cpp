@@ -1,5 +1,5 @@
 ﻿# include "stdafx.h"
-#include <memory>
+# include <memory>
 # include "Scenes/IAppScene/IAppScene.h"
 # include "Scripts/Scenes/TitleScene/TitleScene.h"
 # include "Scripts/Scenes/PlayingScene/PlayingScene.h"
@@ -8,9 +8,9 @@
 
 
 
-/*
-// メインスクリプト
-*/
+/// <summary>
+/// アプリケーションのエントリーポイント
+/// </summary>
 
 void Main()
 {
@@ -23,25 +23,23 @@ void Main()
 	// BGMの準備
 	Audio bgm{ U"Assets/Sounds/BGM/TitleBGM.mp3", Loop::Yes };
 
-	// -----------------------------------
 	// ゲームステートの準備
-	// -----------------------------------
 	GameState currentState = GameState::Title;
 	std::shared_ptr<IAppScene> currentScene = std::make_shared<TitleScene>();
 
-	// ReadySceneから受け取った設計図を保持しておく変数
+	// ReadySceneからPlayingSceneへ引き継ぐ設計図データ
+	// リセット時にも使用するため、Sceneの外で保持する
 	Grid<bool> lastDesign(70, 50, false);
 
 	while (System::Update())
 	{
+		// 1. シーンの更新
 		const GameState nextState = currentScene->update();
 
-		// 2. 現在のシーンの描画処理を呼ぶ
+		// 2. シーンの描画
 		currentScene->draw();
 
-		// -----------------------------------
-		// ゲームステートごとの処理
-		// -----------------------------------
+		// 3. 状態遷移の処理
 		if (nextState != currentState)
 		{
 			switch (nextState)
@@ -59,33 +57,29 @@ void Main()
 				currentScene = std::make_shared<ReadyScene>();
 				break;
 			case GameState::Playing:
-				// 現在のシーンがReadySceneであることを確認し、キャストする
+				// Ready -> Playing への遷移時のみ、設計図を更新して保存
 				if (auto readyScene = std::dynamic_pointer_cast<ReadyScene>(currentScene))
 				{
-					// BGMを停止する
 					bgm.stop();
-					// ReadySceneから完成したグリッドデータを取得
-					lastDesign = readyScene->getGrid();
-					// そのデータを渡して、新しいPlayingSceneを作成する
+					lastDesign = readyScene->getGrid(); // 設計図を保存
 					currentScene = std::make_shared<PlayingScene>(lastDesign);
 				}
 				break;
 			case GameState::Reset:
 				{
-					// 保存しておいた設計図を使って、PlayingSceneを「新しく作り直す」
+					// 保存しておいた設計図(lastDesign)を使って再生成
+					// ステートはPlayingに戻す
 					currentScene = std::make_shared<PlayingScene>(lastDesign);
 					currentState = GameState::Playing;
 					continue;
 				}
 				break;
-			case GameState::Rnaking:
-				// ランキング表示
-
+			case GameState::Ranking:
+				// TODO: ランキング実装
 				break;
 
 			default:
-				// 予期せぬ状態遷移
-				throw std::runtime_error("ゲームが予期せない遷移をしました");
+				throw std::runtime_error("予期せぬゲーム状態への遷移が発生しました");
 				break;
 			}
 
@@ -93,9 +87,9 @@ void Main()
 			currentState = nextState;
 		}
 
+		// タイトル画面のBGM制御
 		if (currentState == GameState::Title && !bgm.isPlaying())
 		{
-			// タイトル画面でBGMが再生されていなければ再生する
 			bgm.play();
 		}
 	}	

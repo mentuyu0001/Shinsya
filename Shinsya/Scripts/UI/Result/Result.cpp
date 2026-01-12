@@ -1,10 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Result.h"
 
-/*
-// リザルト画面を表示するスクリプト
-*/
-
 Result::Result()
 	: isGoal(false),
 	  time(0),

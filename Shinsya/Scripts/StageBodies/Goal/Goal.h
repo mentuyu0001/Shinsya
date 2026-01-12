@@ -1,17 +1,19 @@
 ﻿#pragma once
 
-/*
-// ゴール生成と判定を行うヘッダー
-*/
+/// <summary>
+/// ゴール生成と判定を行うヘッダー
+///  </summary>
 
 class Goal
 {
 public:
+	/// <summary> ゴールの生成 </summary>
 	Goal(P2World& world);
 
+	/// <summary> ゴールの描画 </summary>
 	void draw() const;
 
-	// ゴール判定
+	/// <summary> ゴール判定 </summary>
 	bool GoalChecker(P2Body player);
 
 private:

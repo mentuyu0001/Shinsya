@@ -8,11 +8,20 @@
 #include "Scenes/IAppScene/IAppScene.h"
 #include "StageBodies/Signboard/Signboard.h"
 
+/// <summary>
+/// プレイシーンのクラス
+/// </summary>
+
 class PlayingScene : public IAppScene
 {
 public:
+	/// <summary> プレイシーンの生成 </summary>
 	PlayingScene(Grid<bool> myDesign);
+
+	/// <summary> 次画面への遷移 </summary>
 	GameState update() override;
+
+	/// <summary> プレイシーン全体の描画 </summary>
 	void draw() const override;
 	static void StartBGM();
 	static void StopBGM();
