@@ -1,10 +1,6 @@
 ﻿#include "stdafx.h"
 #include "DisplayTimer.h"
 
-/*
-// タイマーを表示するスクリプト
-*/
-
 DisplayTimer::DisplayTimer()
 	: isGoal(false),
 	  time(0),

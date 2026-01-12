@@ -1,17 +1,19 @@
 ﻿#pragma once
 
-/*
-// ボタン UI クラス
-*/
+/// <summary>
+/// ボタン UI クラス
+/// </summary>
 
 class Button
 {
 public:
-	// コンストラクタ
+	/// <summary> ボタンの生成 </summary>
 	Button(const RectF& rect, const Font& font, const String& text);
 
-	// 更新と描画
+	/// <summary> ボタンのアニメーション処理とアクション処理 </summary>
 	bool update();
+
+	/// <summary> ボタンの描画 </summary>
 	void draw(bool isActive = false) const;
 
 private:

@@ -1,10 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Goal.h"
 
-/*
-// ゴール生成と判定を行うスクリプト
-*/
-
 Goal::Goal(P2World& world)
 	: goal(world.createRect(P2BodyType::Static, Vec2{ 3170, 77 }, SizeF{ 100, 1000 })),
 	  goalID(goal.id()),

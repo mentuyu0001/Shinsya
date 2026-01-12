@@ -3,9 +3,9 @@
 # include "Scenes/IAppScene/IAppScene.h"
 # include "UI/Button/Button.h"
 
-/*
-// 芯車制作画面のシーンクラス
-*/
+/// <summary>
+/// 芯車制作シーンのクラス
+/// </summary>
 
 class ReadyScene : public IAppScene
 {
@@ -18,11 +18,16 @@ public:
 		None
 	};
 
+	/// <summary> 芯車制作シーンの生成 </summary>
 	ReadyScene();
+
+	/// <summary> 次シーンへの遷移 </summary>
 	GameState update() override;
+
+	/// <summary> 芯車制作シーン全体の描画 </summary>
 	void draw() const override;
 
-	// 完成したグリッドのデータを外部に渡すための関数
+	/// <summary> 完成したグリッドのデータを外部に渡す </summary>
 	const Grid<bool>& getGrid() const;
 
 private:

@@ -1,10 +1,6 @@
 ﻿#include "stdafx.h"
 #include "ReadyScene.h"
 
-/*
-// 芯車制作画面のシーンクラス
-*/
-
 ReadyScene::ReadyScene()
 // メンバー変数を初期化
 	: texture(U"Assets/Images/Title/Title.png")

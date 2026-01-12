@@ -1,16 +1,19 @@
 ﻿#pragma once
 
-/*
-ステージ制作を行うヘッダーファイル
-*/
+/// <summary>
+/// ステージ制作を行うクラス
+/// </summary>
+
 class Stage
 {
 public:
+	/// <summary> ステージの生成 </summary>
 	Stage(P2World& world);
 
-	// ステージの全要素を描画する
+	/// <summary> ステージの全要素を描画する </summary>
 	void draw() const;
 
+	/// <summary> ステージの静的物体群を取得する </summary>
 	const Array<P2Body>& getBodies() const;
 
 private:

@@ -1,10 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Stage.h"
 
-/*
-// ステージ制作を行うスクリプト
-*/
-
 Stage::Stage(P2World& world)
 	: m_texture((U"Assets/Images/Stage/Stage.png"))
 {

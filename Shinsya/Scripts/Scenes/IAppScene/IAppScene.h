@@ -2,14 +2,15 @@
 #include "stdafx.h"
 #include "GameState/GameState.h"
 
-/*
-// シーンのインターフェース
-*/
+/// <summary>
+/// シーンのインターフェース
+/// </summary>
 
 class IAppScene
 {
 public:
 	// 仮想デストラクタ
+
 	virtual ~IAppScene() = default;
 
 	// 純粋仮想関数

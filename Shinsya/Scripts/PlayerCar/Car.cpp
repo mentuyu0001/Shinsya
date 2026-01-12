@@ -1,11 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Car.h"
 
-/*
-// Carクラス
-*/
-
-Car::Car(P2World& world, const Vec2& pos, double dampingRatio, Array<P2Body> Bodies, const Grid<bool>& blockGrid)
+Car::Car(P2World& world, const Vec2& pos, double dampingRatio, const Array<P2Body>& bodies, const Grid<bool>& blockGrid)
 	: body(world.createRect(P2Dynamic, pos, SizeF{ 200, 20 }))
 	, wheelL(world.createCircle(P2Dynamic, pos + Vec2{ -50, 20 }, 30))
 	, wheelR(world.createCircle(P2Dynamic, pos + Vec2{ 50, 20 }, 30))
@@ -15,9 +11,11 @@ Car::Car(P2World& world, const Vec2& pos, double dampingRatio, Array<P2Body> Bod
 	, wheelRID(wheelR.id())
 	, world(world)
 {
-	wheelL.setAngularDamping(1.5); // 回転の減衰
-	wheelR.setAngularDamping(1.5); // 回転の減衰
+	// 回転の減衰
+	wheelL.setAngularDamping(1.5);
+	wheelR.setAngularDamping(1.5);
 
+	// グリッド生成処理
 	const Size blockSize = { 5, 5 }; // 1ブロックのサイズ
 	const double gridTopY = (-20 / 2.0) - (blockGrid.height() * blockSize.y);
 	for (auto y : step(blockGrid.height()))
@@ -37,6 +35,7 @@ Car::Car(P2World& world, const Vec2& pos, double dampingRatio, Array<P2Body> Bod
 		}
 	}
 
+	// ジョイント設定
 	wheelJointL.setLinearStiffness(4.0, dampingRatio)
 		.setLimits(-5, 5).setLimitsEnabled(true)
 		.setMaxMotorTorque(5000).setMotorEnabled(true);
@@ -44,9 +43,10 @@ Car::Car(P2World& world, const Vec2& pos, double dampingRatio, Array<P2Body> Bod
 		.setLimits(-5, 5).setLimitsEnabled(true)
 		.setMaxMotorTorque(5000).setMotorEnabled(true);
 
-	for (const auto& body : Bodies)
+	// 地面IDの登録
+	for (const auto& groundBody : bodies)
 	{
-		groundID.insert(body.id());
+		groundID.insert(groundBody.id());
 	}
 }
 
@@ -66,29 +66,34 @@ void Car::setMotorSpeed(double speed)
 
 void Car::jump(double force)
 {
-	// 地面と接地してるときのみジャンプが行える
+	// タイヤが地面と接触しているか確認
+	bool jumped = false;
+
 	for (auto&& [pair, collision] : world.getCollisions())
 	{
-		for (const auto& groundid : groundID)
-		{
-			bool jumped = false;
-			// 衝突のうち片方が地面の ID であれば、もう片方が地面と接触しているボディ
-			if (pair.a == groundid && pair.b == wheelLID || pair.a == wheelLID && pair.b == groundid)
-			{
-				wheelL.applyLinearImpulse(Vec2{ 0, -force });
-				jumped = true;
-			}
+		// 衝突している片方が「左タイヤ」または「右タイヤ」か確認
+		// かつ、もう片方が「地面IDリスト」に含まれているか確認
 
-			if (pair.a == groundid && pair.b == wheelRID || pair.a == wheelRID && pair.b == groundid)
-			{
-				wheelR.applyLinearImpulse(Vec2{ 0, -force });
-				jumped = true;
-			}
-			if (jumped)
-			{
-				getJumpSound().playOneShot();
-			}
+		// Aがタイヤ、Bが地面
+		if ((pair.a == wheelLID || pair.a == wheelRID) && groundID.contains(pair.b))
+		{
+			// 対応するタイヤに力を加える
+			if (pair.a == wheelLID) wheelL.applyLinearImpulse(Vec2{ 0, -force });
+			else                    wheelR.applyLinearImpulse(Vec2{ 0, -force });
+			jumped = true;
 		}
+		// Bがタイヤ、Aが地面
+		else if ((pair.b == wheelLID || pair.b == wheelRID) && groundID.contains(pair.a))
+		{
+			if (pair.b == wheelLID) wheelL.applyLinearImpulse(Vec2{ 0, -force });
+			else                    wheelR.applyLinearImpulse(Vec2{ 0, -force });
+			jumped = true;
+		}
+	}
+
+	if (jumped)
+	{
+		getJumpSound().playOneShot();
 	}
 }
 
@@ -107,17 +112,17 @@ Vec2 Car::getPosition() const
 	return body.getPos();
 }
 
-P2Body Car::getBody()
+P2Body Car::getBody() const
 {
 	return body;
 }
 
-P2Body Car::getWheelL()
+P2Body Car::getWheelL() const
 {
 	return wheelL;
 }
-
-P2Body Car::getWheelR()
+ 
+P2Body Car::getWheelR() const
 {
 	return wheelR;
 }

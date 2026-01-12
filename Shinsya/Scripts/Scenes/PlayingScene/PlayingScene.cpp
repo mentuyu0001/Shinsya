@@ -2,7 +2,6 @@
 #include "PlayingScene.h"
 
 
-// コンストラクタで、Mainにあったオブジェクトをすべて初期化する
 PlayingScene::PlayingScene(Grid<bool> myDesign)
 	: texture(U"Assets/Images/Stage/Background.png")
 	, m_world(98 * 3)

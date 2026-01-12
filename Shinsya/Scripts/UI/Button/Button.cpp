@@ -1,10 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Button.h"
 
-/*
-// ボタンUIスクリプト
-*/
-
 Button::Button(const RectF& rect, const Font& font, const String& text)
 	: m_rect(rect)
 	, m_font(font)
